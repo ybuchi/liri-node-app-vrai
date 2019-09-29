@@ -1,0 +1,24 @@
+{
+  "name": "liri-node-app-vrai",
+  "version": "1.0.0",
+  "description": "LIRI is a Language Interpretation and Recognition Interface. It is a command-line-driven application that takes in arguments and gives back data.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ybuchi/liri-node-app-vrai.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ybuchi/liri-node-app-vrai/issues"
+  },
+  "homepage": "https://github.com/ybuchi/liri-node-app-vrai#readme",
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "node-spotify-api": "^1.1.1"
+  }
+}
