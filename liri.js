@@ -80,9 +80,14 @@ spotify
     .get("https://rest.bandsintown.com/artists/" + query + "/events?app_id=codingbootcamp")
     .then(function(response) {
 
-        console.log(response);
+        console.log(response.data);
+        console.log("Venue Name: " + response.data[0].venue.name);
+        console.log("Venue Location: " + response.data[0].venue.city + ", " + response.data[0].venue.region + ", " + response.data[0].venue.country);
+        console.log("Venue Date: " + response.data[0].datetime);
 
     })
-}
+};
+
+
 
 
