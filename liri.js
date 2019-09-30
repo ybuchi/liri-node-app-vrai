@@ -4,6 +4,9 @@ require("dotenv").config();
 //Require the axios package
 var axios = require("axios");
 
+//Require the fs package
+var fs = require("fs");
+
 //Require the Bands In Town poackage
 var bandsintown = require("bandsintown")("codingbootcamp");
 
@@ -43,12 +46,12 @@ spotify
   .then(function(response) {
     //Display the user's input
     console.log("-----Finding song information for: " + query + " -----");
-    console.log("-------------------------------------------------------------");
+    console.log("-------------------------------------");
 
     for (i = 0; i < 10; i ++){
-        console.log("--------------------")
+        console.log("-------------------------------------")
         console.log("///Result " + (i+1));
-        console.log("--------------------")
+        console.log("-------------------------------------")
         console.log("Song: " + response.tracks.items[i].name);
         console.log("Artist: " + response.tracks.items[i].artists[0].name);
         console.log("Album: " + response.tracks.items[i].album.name);
@@ -80,14 +83,55 @@ spotify
     .get("https://rest.bandsintown.com/artists/" + query + "/events?app_id=codingbootcamp")
     .then(function(response) {
 
-        console.log(response.data);
-        console.log("Venue Name: " + response.data[0].venue.name);
-        console.log("Venue Location: " + response.data[0].venue.city + ", " + response.data[0].venue.region + ", " + response.data[0].venue.country);
-        console.log("Venue Date: " + response.data[0].datetime);
+        for(i = 0; i < response.data.length; i++){
+            console.log("///Result " + (i+1));
+            console.log("Venue Name: " + response.data[i].venue.name);
+            console.log("Venue Location: " + response.data[i].venue.city + ", " + response.data[i].venue.country);
+            console.log("Venue Date: " + response.data[i].datetime);
+            console.log("-------------------------------------");
+        }//END of for loop
 
     })
-};
+}else if(service === "do-what-it-says"){
+
+    fs.readFile("random.txt", "utf8", function(error, data) {
+
+        // If the code experiences any errors it will log the error to the console.
+        if (error) {
+          return console.log(error);
+        }
+      
+        // We will then print the contents of data
+        console.log(data);
+      
+        // Then split it by commas (to make it more readable)
+        var dataArr = data.split(",");
+      
+        // We will then re-display the content as an array for later use.
+        console.log(dataArr);
+
+        var song = dataArr[1];
 
 
+//Run Spotify this song
+spotify
+  .search({ type: 'track', query: song })
+  .then(function(response) {
+    //Display the user's input
+    console.log("-----Finding song information for: " + song + " -----");
+    console.log("-------------------------------------");
 
+    for (i = 0; i < 10; i ++){
+        console.log("-------------------------------------")
+        console.log("///Result " + (i+1));
+        console.log("-------------------------------------")
+        console.log("Song: " + response.tracks.items[i].name);
+        console.log("Artist: " + response.tracks.items[i].artists[0].name);
+        console.log("Album: " + response.tracks.items[i].album.name);
+        console.log("Song Link: " + response.tracks.items[i].href);
+    }//End of For loop
 
+      
+      })//End of .then function
+    });
+}
